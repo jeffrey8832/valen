@@ -30,7 +30,7 @@ const ValentineUI: React.FC<ValentineUIProps> = ({
 }) => {
   if (state === AppState.SUCCESS) {
     return (
-      <div className="bg-white p-6 sm:p-10 rounded-[2.5rem] shadow-2xl text-center max-w-md w-full border-4 border-pink-100 flex flex-col items-center animate-in fade-in zoom-in duration-500">
+      <div className="bg-white p-6 sm:p-10 rounded-[2.5rem] shadow-2xl text-center max-w-md w-full border-4 border-pink-100 flex flex-col items-center animate-in fade-in zoom-in duration-500 mx-auto">
         <div className="mb-6 floating">
           <LucideIcons.Heart className="w-24 h-24 text-pink-500 fill-pink-500" />
         </div>
@@ -69,8 +69,8 @@ const ValentineUI: React.FC<ValentineUIProps> = ({
   const IconComponent = LucideIcons[currentPhase.icon] || LucideIcons.Heart;
 
   return (
-    <div className="bg-white p-6 sm:p-10 rounded-[2.5rem] shadow-2xl text-center max-w-md w-full border-4 border-pink-50 relative overflow-hidden flex flex-col items-center">
-      {/* Background Hearts */}
+    <div className="bg-white p-6 sm:p-10 rounded-[2.5rem] shadow-2xl text-center max-w-md w-full border-4 border-pink-50 relative overflow-visible flex flex-col items-center mx-auto">
+      {/* Background Hearts Decorations */}
       <div className="absolute top-4 left-4 opacity-10"><LucideIcons.Heart className="w-8 h-8 text-pink-300" /></div>
       <div className="absolute bottom-4 right-4 opacity-10 rotate-12"><LucideIcons.Heart className="w-12 h-12 text-pink-400" /></div>
 
@@ -80,7 +80,7 @@ const ValentineUI: React.FC<ValentineUIProps> = ({
         </div>
       </div>
 
-      <div className="z-10 relative mb-8">
+      <div className="z-10 relative mb-4">
         <span className="bg-pink-100 text-pink-600 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest mb-2 inline-block">
           浪漫邀约
         </span>
@@ -91,25 +91,25 @@ const ValentineUI: React.FC<ValentineUIProps> = ({
         </h1>
       </div>
 
-      {/* Button Layout for Mobile: Stacked to handle growth without overlap */}
-      <div className="flex flex-col items-center justify-start w-full min-h-[300px] sm:min-h-[250px] space-y-8 py-4">
+      {/* Main Interaction Area: Increased minimum height to accommodate Yes button growth */}
+      <div className="flex flex-col items-center justify-center w-full min-h-[320px] space-y-12 py-6 relative">
         
-        {/* Yes Button - Fixed center-top position of this sub-container */}
-        <div className="flex items-center justify-center w-full min-h-[80px] z-30 pointer-events-none">
+        {/* Yes Button Container - High z-index and flex space */}
+        <div className="flex items-center justify-center w-full min-h-[140px] relative z-40">
           <button
             onClick={onYesClick}
             style={{ 
               transform: `scale(${yesButtonSize})`,
-              transition: 'transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
+              transition: 'transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
             }}
-            className="pointer-events-auto bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-black py-4 px-12 rounded-full shadow-xl active:scale-95 whitespace-nowrap text-lg relative"
+            className="bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-black py-4 px-12 rounded-full shadow-xl active:scale-95 whitespace-nowrap text-lg relative"
           >
             好呀！✨
           </button>
         </div>
 
-        {/* No Button - Moves independently in its own space below */}
-        <div className="flex items-center justify-center w-full min-h-[60px] relative">
+        {/* No Button Container - Moving target, lower z-index to stay beneath Yes button if they cross */}
+        <div className="flex items-center justify-center w-full min-h-[60px] relative z-20">
           <button
             onClick={onNoClick}
             onMouseEnter={onNoHover}
@@ -117,7 +117,7 @@ const ValentineUI: React.FC<ValentineUIProps> = ({
             style={{ 
               transform: `translate(${noButtonPos.x}px, ${noButtonPos.y}px)`,
             }}
-            className="bg-gray-50 hover:bg-gray-100 text-gray-400 font-bold py-3 px-8 rounded-full shadow-sm transition-all duration-200 whitespace-nowrap z-20 text-sm border border-gray-100 touch-none"
+            className="bg-gray-50 hover:bg-gray-100 text-gray-400 font-bold py-3 px-8 rounded-full shadow-sm transition-all duration-200 whitespace-nowrap text-sm border border-gray-100 touch-none"
           >
             {currentPhase.text}
           </button>
@@ -125,7 +125,7 @@ const ValentineUI: React.FC<ValentineUIProps> = ({
       </div>
 
       {rejectionCount > 0 && (
-        <div className="mt-4 px-4 py-2 bg-pink-50 rounded-xl inline-block border border-pink-100 animate-pulse relative z-10">
+        <div className="mt-2 px-4 py-2 bg-pink-50 rounded-xl inline-block border border-pink-100 animate-pulse relative z-10">
           <p className="text-pink-400 text-xs font-bold italic">
             {rejectionCount >= 5 ? "看呐，‘好呀’已经大到无法拒绝了！💖" : "心动提示：‘好呀’正在为你加速变大... ❤️"}
           </p>
